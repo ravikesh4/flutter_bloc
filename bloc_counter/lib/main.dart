@@ -45,31 +45,30 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: BlocListener<CounterCubit, CounterState>(
-        listener: (context, state) {
-          if(state.wasIncremented == true) {
-            Scaffold.of(context).showSnackBar(
-             SnackBar(
-               content: Text('Incremented'),
-              duration: Duration(microseconds: 2000),
-             ),
-            );
-          } else if (state.wasIncremented == false) {
-            Scaffold.of(context).showSnackBar(
-             SnackBar(content: Text('Decremented'),
-             duration: Duration(microseconds: 2000),
-             ),
-            );
-          }
-        },
-        child: Center(
+      body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     'You have pushed the button this many times:',
                   ),
-                  BlocBuilder<CounterCubit, CounterState>(
+                  BlocConsumer<CounterCubit, CounterState>(
+                    listener: (context, state) {
+          if(state.wasIncremented == true) {
+            Scaffold.of(context).showSnackBar(
+             SnackBar(
+               content: Text('Incremented'),
+              duration: Duration(seconds: 1),
+             ),
+            );
+          } else if (state.wasIncremented == false) {
+            Scaffold.of(context).showSnackBar(
+             SnackBar(content: Text('Decremented'),
+             duration: Duration(seconds: 1),
+             ),
+            );
+          }
+        },
                     builder: (context, state) {
                       return Text(
                         state.counterValue.toString(),
@@ -102,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
             )
         
         ),
-      ),
+      
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
